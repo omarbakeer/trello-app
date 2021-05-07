@@ -6,12 +6,29 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 you can run the app using the following script:
 
-### `npm start`
+`npm install`
+then
+ `npm start`
 
-So here I've defined the core functionality of adding new lists and new cards, and editing the card text.
+So here I've defined the core functionality of 
+- adding new lists 
+- add new cards
+- edit card text
+- keep state stored in localStorage for persistency
 
-Also I kept the state stored in localStorage for persistency
+*while you asked to commit to the 4 hours time interval to be working on this task, I honestly took 3 more hours to get it to the current state.*
 
-while you asked to commit to the 4 hours time interval to be working on this task, I honestly took 3
+so the implementation is based on the request of not using any extra module, I used both `useReducer` and `context API` to mimic the redux state management system.
 
-more hours to get it to the current state
+if I had more time I would have completed:
+- moving card between lists
+- enhanced the user experience
+- add more test cases to add confidence
+
+
+
+
+
+
+
+

@@ -11,11 +11,20 @@ function App() {
     dispatch(actions.createNewList(newList));
   };
 
+  const addANewCard = (newCard) => {
+    dispatch(actions.createNewCard(newCard));
+  };
+
   return (
     <div className="App">
-      {state.lists.map((list) => (
-        <div className="column">
-          <List listLabel={list.listLabel}></List>
+      {state.lists.map((list, index) => (
+        <div className="column" key={index}>
+          <List
+            index={index}
+            listLabel={list.listLabel}
+            listContent={list}
+            addNewCardToListReducer={addANewCard}
+          />
         </div>
       ))}
       <div className="column">

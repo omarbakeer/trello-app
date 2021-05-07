@@ -1,8 +1,8 @@
 import React from 'react';
-import 'Card.style.css';
+import './Card.style.css';
 
-const Card = (props) => {
-  return <div>Card</div>;
+const Card = ({ index, cardContent }) => {
+  return <div className="card">{cardContent.cardText}</div>;
 };
 
 export default Card;

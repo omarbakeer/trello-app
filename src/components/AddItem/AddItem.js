@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './AddItem.style.css';
 
-const AddItem = ({ itemType, hasAtLeastOneItem, addNewListToReducer, addNewCardToListReducer }) => {
+const AddItem = ({ itemType, hasAtLeastOneItem, addNewListToReducer, addNewCardToList }) => {
   const [inputValue, setInputValue] = useState('');
   const [isUserCurrentlyAddingNewItem, setIsUserCurrentlyAddingNewItem] = useState(false);
 
-  
   useEffect(() => {
     document.addEventListener('keydown', handleEscapeKey);
     return () => {
@@ -22,7 +21,7 @@ const AddItem = ({ itemType, hasAtLeastOneItem, addNewListToReducer, addNewCardT
 
   const handleSubmitNewList = (e) => {
     e.preventDefault();
-    const { value } = e.target.elements.listLabel;
+    const { value } = e.target.elements.listInput;
     if (!value || !inputValue) return;
 
     const newList = {
@@ -35,17 +34,12 @@ const AddItem = ({ itemType, hasAtLeastOneItem, addNewListToReducer, addNewCardT
   };
 
   const handleSubmitNewCard = (e) => {
-    // e.preventDefault();
-    // const { value } = e.target.elements.listLabel;
-    // if (!value || !inputValue) return;
-
-    // const newCard = {
-    //   cardText: value || inputValue,
-    //   cards: [],
-    // };
-    // addNewCardToListReducer(newList);
-    // setIsUserCurrentlyAddingNewItem(false);
-    // setInputValue('');
+    e.preventDefault();
+    const { value } = e.target.elements.cardInput;
+    if (!value || !inputValue) return;
+    addNewCardToList(value || inputValue);
+    setIsUserCurrentlyAddingNewItem(false);
+    setInputValue('');
   };
 
   if (!isUserCurrentlyAddingNewItem)
@@ -54,19 +48,34 @@ const AddItem = ({ itemType, hasAtLeastOneItem, addNewListToReducer, addNewCardT
         + Add {hasAtLeastOneItem ? 'another' : 'a'} {itemType}
       </div>
     );
+
   return (
-    <form id="add-item__form" onSubmit={itemType === 'list' ? handleSubmitNewList : handleSubmitNewCard}>
-      <input
-        autoFocus
-        autocomplete="off"
-        className="add-item__input"
-        name="listLabel"
-        value={inputValue}
-        onChange={({ target: { value } }) => setInputValue(value)}
-      />
+    <form
+      id="add-item__form"
+      onSubmit={itemType === 'list' ? handleSubmitNewList : handleSubmitNewCard}
+    >
+      {itemType === 'list' ? (
+        <input
+          autoFocus
+          autocomplete="off"
+          className="add-item__input"
+          name="listInput"
+          value={inputValue}
+          onChange={({ target: { value } }) => setInputValue(value)}
+        />
+      ) : (
+        <textarea
+          autoFocus
+          autocomplete="off"
+          className="add-item__textarea"
+          name="cardInput"
+          value={inputValue}
+          onChange={({ target: { value } }) => setInputValue(value)}
+        />
+      )}
       <div className="add-list__actions-wrapper">
         <button type="submit" className="add-item__submit-button">
-          Add List
+          Add {itemType}
         </button>
         <span
           onClick={() => setIsUserCurrentlyAddingNewItem(false)}

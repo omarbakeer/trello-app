@@ -2,6 +2,7 @@
   padding: 6px 8px;
   background-color: azure;
   height: fit-content;
+  cursor: pointer;
 }
 
 #add-item__form {
@@ -20,6 +21,15 @@
   outline: none;
 }
 
+.add-item__textarea {
+  padding: 6px 8px;
+  outline: none;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  resize: none;
+  height: 54px;
+}
+
 .add-list__actions-wrapper{
   margin: 15px 0;
   display: flex;
@@ -36,6 +46,7 @@
   border-radius: 3px;
   cursor: pointer;
   padding: 6px 12px;
+  outline: none;
 }
 
 .add-item__cancel-button {

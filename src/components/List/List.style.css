@@ -5,13 +5,11 @@
   display: flex;
   flex-direction: column;
   height: fit-content;
-  margin: 0 5px;
   padding: 6px 8px;
-  width: 272px;
 }
 
 .list__label {
-  margin: 0;
+  margin: 0 0 10px 0;
   color: grey;
   font-weight: normal;
   font-size: 16px;

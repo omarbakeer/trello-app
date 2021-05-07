@@ -2,9 +2,23 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './AddItem.style.css';
 
-const AddItem = ({ itemType, hasAtLeastOneItem, addNewListToReducer }) => {
+const AddItem = ({ itemType, hasAtLeastOneItem, addNewListToReducer, addNewCardToListReducer }) => {
   const [inputValue, setInputValue] = useState('');
   const [isUserCurrentlyAddingNewItem, setIsUserCurrentlyAddingNewItem] = useState(false);
+
+  
+  useEffect(() => {
+    document.addEventListener('keydown', handleEscapeKey);
+    return () => {
+      document.removeEventListener('keydown', handleEscapeKey);
+    };
+  }, []);
+
+  const handleEscapeKey = (e) => {
+    if (e.key === 'Escape') {
+      setIsUserCurrentlyAddingNewItem(false);
+    }
+  };
 
   const handleSubmitNewList = (e) => {
     e.preventDefault();
@@ -20,6 +34,20 @@ const AddItem = ({ itemType, hasAtLeastOneItem, addNewListToReducer }) => {
     setInputValue('');
   };
 
+  const handleSubmitNewCard = (e) => {
+    // e.preventDefault();
+    // const { value } = e.target.elements.listLabel;
+    // if (!value || !inputValue) return;
+
+    // const newCard = {
+    //   cardText: value || inputValue,
+    //   cards: [],
+    // };
+    // addNewCardToListReducer(newList);
+    // setIsUserCurrentlyAddingNewItem(false);
+    // setInputValue('');
+  };
+
   if (!isUserCurrentlyAddingNewItem)
     return (
       <div className="add-item__placeholder" onClick={() => setIsUserCurrentlyAddingNewItem(true)}>
@@ -27,7 +55,7 @@ const AddItem = ({ itemType, hasAtLeastOneItem, addNewListToReducer }) => {
       </div>
     );
   return (
-    <form id="add-item__form" onSubmit={handleSubmitNewList}>
+    <form id="add-item__form" onSubmit={itemType === 'list' ? handleSubmitNewList : handleSubmitNewCard}>
       <input
         autoFocus
         autocomplete="off"

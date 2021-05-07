@@ -6,3 +6,8 @@
   padding: 6px 8px;
   box-sizing: border-box;
 }
+
+.column {
+  width: 272px;
+  margin: 0 5px;
+}

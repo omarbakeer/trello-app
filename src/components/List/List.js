@@ -1,16 +1,19 @@
 import React from 'react';
+import { useCustomContext, actions } from '../../state';
 import AddItem from '../AddItem';
 import Card from '../Card';
 import './List.style.css';
 
-const List = ({ index, listLabel, listContent, addNewCardToListReducer }) => {
+const List = ({ index, listLabel, listContent }) => {
+  const [, dispatch] = useCustomContext();
+
   const addNewCardToTheList = (cardText) => {
     const newCard = {
       cardText,
       order: listContent.cards.length + 1,
       indexOfParentList: index,
     };
-    addNewCardToListReducer(newCard);
+    dispatch(actions.createNewCard(newCard));
   };
 
   return (

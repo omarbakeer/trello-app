@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useCustomContext, actions } from '../../state';
 import PropTypes from 'prop-types';
 import './AddItem.style.css';
 
-const AddItem = ({ itemType, hasAtLeastOneItem, addNewListToReducer, addNewCardToList }) => {
+const AddItem = ({ itemType, hasAtLeastOneItem, addNewCardToList }) => {
   const [inputValue, setInputValue] = useState('');
   const [isUserCurrentlyAddingNewItem, setIsUserCurrentlyAddingNewItem] = useState(false);
+  const [, dispatch] = useCustomContext();
 
   useEffect(() => {
     document.addEventListener('keydown', handleEscapeKey);
@@ -34,7 +36,7 @@ const AddItem = ({ itemType, hasAtLeastOneItem, addNewListToReducer, addNewCardT
       listLabel: value || inputValue,
       cards: [],
     };
-    addNewListToReducer(newList);
+    dispatch(actions.createNewList(newList));
     setInputValue('');
   };
 

@@ -13,6 +13,12 @@ const AddItem = ({ itemType, hasAtLeastOneItem, addNewListToReducer, addNewCardT
     };
   }, []);
 
+  const resetInputFieldAfterTogglingEditMode = () => {
+    if (inputValue) setInputValue('');
+  };
+
+  useEffect(resetInputFieldAfterTogglingEditMode, [isUserCurrentlyAddingNewItem]);
+
   const handleEscapeKey = (e) => {
     if (e.key === 'Escape') {
       setIsUserCurrentlyAddingNewItem(false);
@@ -29,7 +35,6 @@ const AddItem = ({ itemType, hasAtLeastOneItem, addNewListToReducer, addNewCardT
       cards: [],
     };
     addNewListToReducer(newList);
-    setIsUserCurrentlyAddingNewItem(false);
     setInputValue('');
   };
 
@@ -38,7 +43,6 @@ const AddItem = ({ itemType, hasAtLeastOneItem, addNewListToReducer, addNewCardT
     const { value } = e.target.elements.cardInput;
     if (!value || !inputValue) return;
     addNewCardToList(value || inputValue);
-    setIsUserCurrentlyAddingNewItem(false);
     setInputValue('');
   };
 

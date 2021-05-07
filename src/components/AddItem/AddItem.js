@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './AddItem.style.css';
 
-const AddItem = ({ hasAtLeastOneItem, addNewListToReducer }) => {
+const AddItem = ({ itemType, hasAtLeastOneItem, addNewListToReducer }) => {
   const [inputValue, setInputValue] = useState('');
   const [isUserCurrentlyAddingNewItem, setIsUserCurrentlyAddingNewItem] = useState(false);
 
-  const handleSubmitNewList = e => {
+  const handleSubmitNewList = (e) => {
     e.preventDefault();
     const { value } = e.target.elements.listLabel;
+    if (!value || !inputValue) return;
+
     const newList = {
       listLabel: value || inputValue,
       cards: [],
@@ -16,25 +18,34 @@ const AddItem = ({ hasAtLeastOneItem, addNewListToReducer }) => {
     addNewListToReducer(newList);
     setIsUserCurrentlyAddingNewItem(false);
     setInputValue('');
-  }
+  };
 
   if (!isUserCurrentlyAddingNewItem)
     return (
       <div className="add-item__placeholder" onClick={() => setIsUserCurrentlyAddingNewItem(true)}>
-        + Add {hasAtLeastOneItem ? 'another' : 'a'} list
+        + Add {hasAtLeastOneItem ? 'another' : 'a'} {itemType}
       </div>
     );
   return (
-    <form className="add-item__form" onSubmit={handleSubmitNewList}>
+    <form id="add-item__form" onSubmit={handleSubmitNewList}>
       <input
         autoFocus
+        autocomplete="off"
+        className="add-item__input"
         name="listLabel"
         value={inputValue}
         onChange={({ target: { value } }) => setInputValue(value)}
       />
       <div className="add-list__actions-wrapper">
-        <button type="submit">Add List</button>
-        {/* TODO cancel button */}
+        <button type="submit" className="add-item__submit-button">
+          Add List
+        </button>
+        <span
+          onClick={() => setIsUserCurrentlyAddingNewItem(false)}
+          className="add-item__cancel-button"
+        >
+          X
+        </span>
       </div>
     </form>
   );

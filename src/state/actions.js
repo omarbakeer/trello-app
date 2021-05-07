@@ -9,3 +9,8 @@ export const createNewCard = (payload) => ({
   type: actionTypes.CREATE_NEW_CARD,
   payload,
 });
+
+export const editCard = (payload) => ({
+  type: actionTypes.EDIT_CARD,
+  payload,
+});

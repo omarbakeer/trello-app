@@ -1,11 +1,11 @@
-.add-new-list-label {
+.add-item__placeholder {
   padding: 6px 8px;
   background-color: azure;
   width: 272px;
   height: fit-content;
 }
 
-.add-new-list-wrapper {
+.add-item__form {
   display: flex;
   flex-direction: column;
 }

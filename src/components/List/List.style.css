@@ -11,6 +11,7 @@
 }
 
 .list__label {
+  margin: 0;
   color: grey;
   font-weight: normal;
   font-size: 16px;
